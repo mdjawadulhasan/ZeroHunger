@@ -56,10 +56,19 @@ namespace ZeroHunger.Controllers
                     RestaurantModel rm = new RestaurantModel();
                     rm = (RestaurantModel)Session["rs"];
 
-                    crm.CrId = rm.Rid;
-                    crm.Date = DateTime.Now;
-                    CollectionRequestRepo.Create(crm);
-                    return RedirectToAction("Profile");
+                    if (CollectionRequestRepo.checkRequest(rm.Rid) <1)
+                    {
+                        crm.CrId = rm.Rid;
+                        crm.Date = DateTime.Now;
+                        CollectionRequestRepo.Create(crm);
+                        return RedirectToAction("Profile");
+                    }
+                    else
+                    {
+                        return View();
+                    }
+
+                   
                 }
 
                 return View();
