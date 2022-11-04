@@ -58,6 +58,28 @@ namespace ZeroHunger.Repo
             return restaurant;
         }
 
+        public static RestaurantModel Get(string uname,string pass)
+        {
+            var db = new Entities();
+            var restaurant = new RestaurantModel();
+            var dbr = (from p in db.Restaurants
+                              where p.ResUname == uname && p.ResPass == pass
+                          select p).SingleOrDefault();
+
+
+            if (dbr != null)
+            {
+                restaurant.Rid = dbr.Rid;
+                restaurant.ResName = dbr.ResName;
+                restaurant.ResLocation = dbr.ResLocation;
+                restaurant.ResUname = dbr.ResUname;
+                restaurant.ResPass = dbr.ResPass;
+            }
+
+            return restaurant;
+
+        }
+
         public static void Edit(RestaurantModel dbr)
         {
 

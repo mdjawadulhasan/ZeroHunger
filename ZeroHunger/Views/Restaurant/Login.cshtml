@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form action="" method="post">
+    <span class="text-danger"> @ViewBag.msg</span>
+    <input type="text" name="ResUname" placeholder="Username" class="form-control" />
+    <input type="text" name="ResPass" placeholder="Password" class="form-control" />
+    <input type="submit" value="Login" class="btn btn-success" />
+</form>
+
+
+@if (TempData["value"] != null && TempData["value"] == "invalid")
+{
+    <script>
+        swal("Wrong Credentials!", "Try Again!", "error");
+    </script>
+}
