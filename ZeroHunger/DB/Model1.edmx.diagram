@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bf84469bd98c45e2b970993fdbc23e5f" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Admin" Width="1.5" PointX="2.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CollectionRequest" Width="1.5" PointX="3.375" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DistributionList" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+      <Diagram DiagramId="7a676ed1ae9848b09ebd6ea44202dc04" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Admin" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CollectionRequest" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DistributionList" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Employee" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Restaurant" Width="1.5" PointX="5.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Restaurant" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_CollectionRequests_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CollectionRequests_Restaurants" ManuallyRouted="false" />
       </Diagram>

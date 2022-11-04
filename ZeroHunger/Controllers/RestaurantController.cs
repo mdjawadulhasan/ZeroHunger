@@ -34,10 +34,42 @@ namespace ZeroHunger.Controllers
 
         }
 
-
         public ActionResult Profile()
         {
             return View();
         }
+
+        public ActionResult CreateRequest()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateRequest(CollectionRequestModel crm)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    RestaurantModel rm = new RestaurantModel();
+                    rm = (RestaurantModel)Session["rs"];
+
+                    crm.CrId = rm.Rid;
+                    crm.Date = DateTime.Now;
+                    CollectionRequestRepo.Create(crm);
+                    return RedirectToAction("Profile");
+                }
+
+                return View();
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
     }
 }

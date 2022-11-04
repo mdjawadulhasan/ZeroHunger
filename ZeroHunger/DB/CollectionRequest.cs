@@ -17,7 +17,7 @@ namespace ZeroHunger.DB
         public int ColId { get; set; }
         public Nullable<int> CrId { get; set; }
         public string FoodType { get; set; }
-        public string MaxTime { get; set; }
+        public Nullable<int> MaxTime { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> CempId { get; set; }
         public Nullable<int> Status { get; set; }

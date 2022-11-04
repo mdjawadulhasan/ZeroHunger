@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Adid" />
@@ -20,7 +20,7 @@
           <Property Name="ColId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CrId" Type="int" />
           <Property Name="FoodType" Type="varchar" MaxLength="50" />
-          <Property Name="MaxTime" Type="varchar" MaxLength="50" />
+          <Property Name="MaxTime" Type="int" />
           <Property Name="Date" Type="datetime" />
           <Property Name="CempId" Type="int" />
           <Property Name="Status" Type="int" />
@@ -96,7 +96,8 @@
             <End Role="CollectionRequests" EntitySet="CollectionRequests" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -115,7 +116,7 @@
           <Property Name="ColId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CrId" Type="Int32" />
           <Property Name="FoodType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MaxTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxTime" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="CempId" Type="Int32" />
           <Property Name="Status" Type="Int32" />
@@ -142,8 +143,8 @@
           <Property Name="EmpPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EmpUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EmpPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CollectionRequests" Relationship="Self.FK_CollectionRequests_Employees" FromRole="Employees" ToRole="CollectionRequests" />
           <Property Name="EmpStatus" Type="Int32" />
+          <NavigationProperty Name="CollectionRequests" Relationship="Self.FK_CollectionRequests_Employees" FromRole="Employees" ToRole="CollectionRequests" />
         </EntityType>
         <EntityType Name="Restaurant">
           <Key>
@@ -236,7 +237,6 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="Model.Employee">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
                 <ScalarProperty Name="Empid" ColumnName="Empid" />
                 <ScalarProperty Name="EmpName" ColumnName="EmpName" />
                 <ScalarProperty Name="EmpAge" ColumnName="EmpAge" />
@@ -244,6 +244,7 @@
                 <ScalarProperty Name="EmpPhone" ColumnName="EmpPhone" />
                 <ScalarProperty Name="EmpUserName" ColumnName="EmpUserName" />
                 <ScalarProperty Name="EmpPassword" ColumnName="EmpPassword" />
+                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
