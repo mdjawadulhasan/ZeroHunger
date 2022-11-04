@@ -61,11 +61,13 @@ namespace ZeroHunger.Controllers
                         crm.CrId = rm.Rid;
                         crm.Date = DateTime.Now;
                         CollectionRequestRepo.Create(crm);
-                        return RedirectToAction("Profile");
+                        return RedirectToAction("TrackRequest");
                     }
                     else
                     {
-                        return View();
+                        TempData["crreq"] = "avlbl";
+                        return RedirectToAction("TrackRequest");
+                       
                     }
 
                    
@@ -79,6 +81,16 @@ namespace ZeroHunger.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult TrackRequest()
+        {
+            RestaurantModel rm = new RestaurantModel();
+            rm = (RestaurantModel)Session["rs"];
+            return View(CollectionRequestRepo.Get(rm.Rid));
+        }
+
+
 
     }
 }

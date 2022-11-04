@@ -32,5 +32,29 @@ namespace ZeroHunger.Repo
             int count = db.CollectionRequests.Where(temp => temp.CrId == id && temp.Status <2).ToList().Count;
             return count;
         }
+
+        public static List<CollectionRequestModel> Get(int id)
+        {
+            var db = new Entities();
+            var collectionRequestModel = new List<CollectionRequestModel>();
+            var colreqdb= db.CollectionRequests.Where(temp => temp.CrId==id).ToList();
+
+            foreach (var item in colreqdb)
+            {
+                collectionRequestModel.Add(new CollectionRequestModel()
+                {
+                    ColId=item.ColId,
+                    CrId=item.CrId,
+                    FoodType=item.FoodType,
+                    MaxTime= (int)item.MaxTime,
+                    Date=item.Date,
+                    CempId=item.CrId,
+                    Status=item.Status,
+
+
+                });
+            }
+            return collectionRequestModel;
+        }
     }
 }

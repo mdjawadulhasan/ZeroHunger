@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ZeroHunger.Models.CollectionRequestModel>
+
+@{
+    ViewBag.Title = "TrackRequest";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Track Request</h2>
+
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FoodType)
+        </th>
+        <th>
+            Max Time (Hours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CempId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {<span>--</span>}
+                @if (item.Status != 0)
+                {
+                    {@Html.ActionLink("Employee Details", "EmpDetails", new { id = item.CempId })}
+            }
+
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {<span>Pending</span>}
+                @if (item.Status == 1)
+                {<span>Request Accepted</span>}
+                @if (item.Status == 2)
+                {<span>Completed</span>}
+                @if (item.Status == 1)
+                {<span>Distributed</span>}
+
+
+            </td>
+            <td>
+
+                @*   @Html.ActionLink("Details", "Details", new { id=item.ColId }) |*@
+                @*   @Html.ActionLink("Delete", "Delete", new {  id=item.CempId  })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@if (TempData["crreq"] != null && TempData["crreq"] == "avlbl")
+{
+    <script>
+        swal("You have already a Pending Request!", "Try After Completion!", "error");
+    </script>
+}
+
