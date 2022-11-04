@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Adid" />
+          </Key>
+          <Property Name="Adid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CollectionRequests">
+          <Key>
+            <PropertyRef Name="ColId" />
+          </Key>
+          <Property Name="ColId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CrId" Type="int" />
+          <Property Name="FoodType" Type="varchar" MaxLength="50" />
+          <Property Name="MaxTime" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="CempId" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="DistributionList">
+          <Key>
+            <PropertyRef Name="DisId" />
+          </Key>
+          <Property Name="DisId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodType" Type="varchar" MaxLength="50" />
+          <Property Name="Place" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Empid" />
+          </Key>
+          <Property Name="Empid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpName" Type="varchar" MaxLength="50" />
+          <Property Name="EmpAge" Type="varchar" MaxLength="50" />
+          <Property Name="EmpAdd" Type="varchar" MaxLength="50" />
+          <Property Name="EmpPhone" Type="varchar" MaxLength="50" />
+          <Property Name="EmpUserName" Type="varchar" MaxLength="50" />
+          <Property Name="EmpPassword" Type="varchar" MaxLength="50" />
+          <Property Name="EmpStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Restaurants">
+          <Key>
+            <PropertyRef Name="Rid" />
+          </Key>
+          <Property Name="Rid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResName" Type="varchar" MaxLength="50" />
+          <Property Name="ResLocation" Type="varchar" MaxLength="50" />
+          <Property Name="ResUname" Type="varchar" MaxLength="50" />
+          <Property Name="ResPass" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CollectionRequests_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="CollectionRequests" Type="Self.CollectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Empid" />
+            </Principal>
+            <Dependent Role="CollectionRequests">
+              <PropertyRef Name="CempId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionRequests_Restaurants">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="0..1" />
+          <End Role="CollectionRequests" Type="Self.CollectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="Rid" />
+            </Principal>
+            <Dependent Role="CollectionRequests">
+              <PropertyRef Name="CrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollectionRequests" EntityType="Self.CollectionRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DistributionList" EntityType="Self.DistributionList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CollectionRequests_Employees" Association="Self.FK_CollectionRequests_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="CollectionRequests" EntitySet="CollectionRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionRequests_Restaurants" Association="Self.FK_CollectionRequests_Restaurants">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="CollectionRequests" EntitySet="CollectionRequests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Adid" />
+          </Key>
+          <Property Name="Adid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CollectionRequest">
+          <Key>
+            <PropertyRef Name="ColId" />
+          </Key>
+          <Property Name="ColId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CrId" Type="Int32" />
+          <Property Name="FoodType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="CempId" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_CollectionRequests_Employees" FromRole="CollectionRequests" ToRole="Employees" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_CollectionRequests_Restaurants" FromRole="CollectionRequests" ToRole="Restaurants" />
+        </EntityType>
+        <EntityType Name="DistributionList">
+          <Key>
+            <PropertyRef Name="DisId" />
+          </Key>
+          <Property Name="DisId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Empid" />
+          </Key>
+          <Property Name="Empid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpAge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpAdd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CollectionRequests" Relationship="Self.FK_CollectionRequests_Employees" FromRole="Employees" ToRole="CollectionRequests" />
+          <Property Name="EmpStatus" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="Rid" />
+          </Key>
+          <Property Name="Rid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResUname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResPass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CollectionRequests" Relationship="Self.FK_CollectionRequests_Restaurants" FromRole="Restaurants" ToRole="CollectionRequests" />
+        </EntityType>
+        <Association Name="FK_CollectionRequests_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="CollectionRequests" Type="Self.CollectionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Empid" />
+            </Principal>
+            <Dependent Role="CollectionRequests">
+              <PropertyRef Name="CempId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionRequests_Restaurants">
+          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="CollectionRequests" Type="Self.CollectionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="Rid" />
+            </Principal>
+            <Dependent Role="CollectionRequests">
+              <PropertyRef Name="CrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="CollectionRequests" EntityType="Self.CollectionRequest" />
+          <EntitySet Name="DistributionLists" EntityType="Self.DistributionList" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <AssociationSet Name="FK_CollectionRequests_Employees" Association="Self.FK_CollectionRequests_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="CollectionRequests" EntitySet="CollectionRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionRequests_Restaurants" Association="Self.FK_CollectionRequests_Restaurants">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="CollectionRequests" EntitySet="CollectionRequests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="Model.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Adid" ColumnName="Adid" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollectionRequests">
+            <EntityTypeMapping TypeName="Model.CollectionRequest">
+              <MappingFragment StoreEntitySet="CollectionRequests">
+                <ScalarProperty Name="ColId" ColumnName="ColId" />
+                <ScalarProperty Name="CrId" ColumnName="CrId" />
+                <ScalarProperty Name="FoodType" ColumnName="FoodType" />
+                <ScalarProperty Name="MaxTime" ColumnName="MaxTime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CempId" ColumnName="CempId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DistributionLists">
+            <EntityTypeMapping TypeName="Model.DistributionList">
+              <MappingFragment StoreEntitySet="DistributionList">
+                <ScalarProperty Name="DisId" ColumnName="DisId" />
+                <ScalarProperty Name="FoodType" ColumnName="FoodType" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Model.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
+                <ScalarProperty Name="Empid" ColumnName="Empid" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpAge" ColumnName="EmpAge" />
+                <ScalarProperty Name="EmpAdd" ColumnName="EmpAdd" />
+                <ScalarProperty Name="EmpPhone" ColumnName="EmpPhone" />
+                <ScalarProperty Name="EmpUserName" ColumnName="EmpUserName" />
+                <ScalarProperty Name="EmpPassword" ColumnName="EmpPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="Model.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurants">
+                <ScalarProperty Name="Rid" ColumnName="Rid" />
+                <ScalarProperty Name="ResName" ColumnName="ResName" />
+                <ScalarProperty Name="ResLocation" ColumnName="ResLocation" />
+                <ScalarProperty Name="ResUname" ColumnName="ResUname" />
+                <ScalarProperty Name="ResPass" ColumnName="ResPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
