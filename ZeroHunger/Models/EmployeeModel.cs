@@ -19,9 +19,9 @@ namespace ZeroHunger.Models
         public string EmpPhone { get; set; }
         [Required]
         public string EmpUserName { get; set; }
-        [Required] 
+       
         public string EmpPassword { get; set; }
-        [Required] 
+        
         public Nullable<int> EmpStatus { get; set; }
     }
 }

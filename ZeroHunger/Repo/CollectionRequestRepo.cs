@@ -12,7 +12,7 @@ namespace ZeroHunger.Repo
 
         public static void Create(CollectionRequestModel crm)
         {
-                    
+
             var collectionreq = new CollectionRequest();
             collectionreq.CrId = crm.CrId;
             collectionreq.FoodType = crm.FoodType;
@@ -29,7 +29,7 @@ namespace ZeroHunger.Repo
         public static int checkRequest(int id)
         {
             var db = new Entities();
-            int count = db.CollectionRequests.Where(temp => temp.CrId == id && temp.Status <2).ToList().Count;
+            int count = db.CollectionRequests.Where(temp => temp.CrId == id && temp.Status < 2).ToList().Count;
             return count;
         }
 
@@ -37,19 +37,19 @@ namespace ZeroHunger.Repo
         {
             var db = new Entities();
             var collectionRequestModel = new List<CollectionRequestModel>();
-            var colreqdb= db.CollectionRequests.Where(temp => temp.CrId==id).ToList();
+            var colreqdb = db.CollectionRequests.Where(temp => temp.CrId == id).ToList();
 
             foreach (var item in colreqdb)
             {
                 collectionRequestModel.Add(new CollectionRequestModel()
                 {
-                    ColId=item.ColId,
-                    CrId=item.CrId,
-                    FoodType=item.FoodType,
-                    MaxTime= (int)item.MaxTime,
-                    Date=item.Date,
-                    CempId=item.CrId,
-                    Status=item.Status,
+                    ColId = item.ColId,
+                    CrId = item.CrId,
+                    FoodType = item.FoodType,
+                    MaxTime = (int)item.MaxTime,
+                    Date = item.Date,
+                    CempId = item.CrId,
+                    Status = item.Status,
 
 
                 });
@@ -62,8 +62,13 @@ namespace ZeroHunger.Repo
         {
             var db = new Entities();
             var existingrestaurant = db.CollectionRequests.Where(temp => temp.ColId == id).FirstOrDefault();
-            db.CollectionRequests.Remove(existingrestaurant);
-            db.SaveChanges();
+            int count = (int)(from val in db.CollectionRequests where val.ColId == id select val.Status).SingleOrDefault();
+
+            if (count == 0)
+            {
+                db.CollectionRequests.Remove(existingrestaurant);
+                db.SaveChanges();
+            }
         }
 
 

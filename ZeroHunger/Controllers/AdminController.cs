@@ -74,6 +74,37 @@ namespace ZeroHunger.Controllers
         }
 
 
-        
+        public ActionResult ShowEmp()
+        {
+            return View(EmployeeRepo.Get());
+        }
+
+        public ActionResult CreateEmp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateEmp(EmployeeModel emp)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    EmployeeRepo.Create(emp);
+                    return RedirectToAction("ShowEmp");
+                }
+
+                return View();
+
+            }
+            catch
+            {
+
+                return View();
+            }
+        }
+
     }
 }

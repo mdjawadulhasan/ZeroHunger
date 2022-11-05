@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ZeroHunger.Models.EmployeeModel>
+
+@{
+    ViewBag.Title = "ShowEmp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowEmp</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateEmp")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.EmpName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpAdd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpUserName)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.EmpStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpAge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpAdd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpUserName)
+        </td>
+       
+        <td>
+            @if (item.EmpStatus == 0)
+            {<span>Avialable</span>}
+            @if (item.EmpStatus != 0)
+            {<span>Assigned</span>}
+            
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
