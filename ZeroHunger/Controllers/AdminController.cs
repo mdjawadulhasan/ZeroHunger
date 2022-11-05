@@ -120,7 +120,8 @@ namespace ZeroHunger.Controllers
 
         public ActionResult Assign(int id)
         {
-            CollectionRequestRepo.AssignEmp(id);
+            string val=CollectionRequestRepo.AssignEmp(id);
+            TempData["assign"] = val;
             return RedirectToAction("SeeReq");
         }
 

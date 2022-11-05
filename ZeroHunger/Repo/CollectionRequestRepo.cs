@@ -48,8 +48,8 @@ namespace ZeroHunger.Repo
                 DateTime dt2 = dt1.AddHours((double)item.MaxTime);
                 DateTime crnt = DateTime.Now;
 
-                
-                if (DateTime.Compare(dt2, crnt) <0)
+
+                if (DateTime.Compare(dt2, crnt) < 0)
                 {
                     item.ColId = item.ColId;
                     item.CrId = item.CrId;
@@ -90,14 +90,14 @@ namespace ZeroHunger.Repo
             var existingrestaurant = db.CollectionRequests.Where(temp => temp.ColId == id).FirstOrDefault();
             int count = (int)(from val in db.CollectionRequests where val.ColId == id select val.Status).SingleOrDefault();
 
-            if (count == 0 || count==4)
+            if (count == 0 || count == 4)
             {
                 db.CollectionRequests.Remove(existingrestaurant);
                 db.SaveChanges();
             }
         }
 
-       
+
 
         public static List<CollectionRequestModel> Get()
         {
@@ -124,19 +124,13 @@ namespace ZeroHunger.Repo
         }
 
 
-        public static void AssignEmp(int id)
+        public static string AssignEmp(int id)
         {
             var db = new Entities();
-            int count = db.Employees.Where(temp => temp.EmpStatus ==0).ToList().Count;
+            int count = db.Employees.Where(temp => temp.EmpStatus == 0).ToList().Count;
 
             if (count >= 1)
             {
-
-                var colreq = new CollectionRequest { ColId = id,Status=1};
-                db.CollectionRequests.Attach(colreq);
-                db.Entry(colreq).Property(x => x.Status).IsModified = true;
-                db.SaveChanges();
-
 
                 var avalemp = db.Employees.Where(temp => temp.EmpStatus == 0).FirstOrDefault();
                 avalemp.Empid = avalemp.Empid;
@@ -147,9 +141,23 @@ namespace ZeroHunger.Repo
                 avalemp.EmpPassword = avalemp.EmpPassword;
                 avalemp.EmpStatus = 1;
                 db.SaveChanges();
+
+
+
+                var colreq = db.CollectionRequests.Where(temp => temp.ColId == id).FirstOrDefault();
+                colreq.ColId = colreq.ColId;
+                colreq.CrId = colreq.CrId;
+                colreq.FoodType = colreq.FoodType;
+                colreq.MaxTime = colreq.MaxTime;
+                colreq.Date = colreq.Date;
+                colreq.CempId = avalemp.Empid;
+                colreq.Status = 1;
+                db.SaveChanges();
+
+                return "assigned";
             }
 
-            
+            return "notassigned";
         }
 
 
@@ -178,5 +186,62 @@ namespace ZeroHunger.Repo
         }
 
 
+
+        public static void CompleteReq(int id,EmployeeModel em)
+        {
+            var db = new Entities();
+
+            var colreq = new CollectionRequest { ColId = id, Status = 3 };
+            db.CollectionRequests.Attach(colreq);
+            db.Entry(colreq).Property(x => x.Status).IsModified = true;
+            db.SaveChanges();
+
+
+
+
+
+            var avalemp = db.Employees.Where(temp => temp.Empid == em.Empid).FirstOrDefault();
+            avalemp.Empid = avalemp.Empid;
+            avalemp.EmpName = avalemp.EmpName;
+            avalemp.EmpAge = avalemp.EmpAge;
+            avalemp.EmpAdd = avalemp.EmpAdd;
+            avalemp.EmpPhone = avalemp.EmpPhone;
+            avalemp.EmpPassword = avalemp.EmpPassword;
+            avalemp.EmpStatus = 0;
+            db.SaveChanges();
+
+
+
+        }
+
+
+
+
+        public static List<CollectionRequestModel> GetAvlReq(int id)
+        {
+
+
+            var db = new Entities();
+            var collectionRequestModel = new List<CollectionRequestModel>();
+            var colreqdb = db.CollectionRequests.Where(temp => temp.CempId == id && temp.Status==1).ToList();
+
+
+            foreach (var item in colreqdb)
+            {
+                collectionRequestModel.Add(new CollectionRequestModel()
+                {
+                    ColId = item.ColId,
+                    CrId = item.CrId,
+                    FoodType = item.FoodType,
+                    MaxTime = (int)item.MaxTime,
+                    Date = item.Date,
+                    CempId = item.CrId,
+                    Status = item.Status,
+
+
+                });
+            }
+            return collectionRequestModel;
+        }
     }
 }

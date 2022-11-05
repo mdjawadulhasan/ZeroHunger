@@ -44,7 +44,7 @@
             </td>
             <td>
                 @{DateTime dt1 = (DateTime)item.Date;
-                DateTime dt2 = dt1.AddHours((double)item.MaxTime);
+                    DateTime dt2 = dt1.AddHours((double)item.MaxTime);
 
                 }
                 <span>@dt2</span>
@@ -56,3 +56,11 @@
     }
 
 </table>
+
+
+@if (TempData["assign"] != null && TempData["assign"] == "notassigned")
+{
+    <script>
+        swal("No Employee Available at this moment!", "Try Later!", "error");
+    </script>
+}

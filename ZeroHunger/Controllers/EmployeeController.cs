@@ -45,5 +45,21 @@ namespace ZeroHunger.Controllers
         {
             return View();
         }
+
+        public ActionResult SeeAvlReq()
+        {
+            EmployeeModel em = new EmployeeModel();
+            em = (EmployeeModel)Session["emp"]; 
+            return View(CollectionRequestRepo.GetAvlReq(em.Empid));
+        }
+
+
+        public ActionResult CompleteReq(int id)
+        {
+            EmployeeModel em = new EmployeeModel();
+            em = (EmployeeModel)Session["emp"];
+            CollectionRequestRepo.CompleteReq(id,em);
+            return RedirectToAction("SeeAvlReq");
+        }
     }
 }
