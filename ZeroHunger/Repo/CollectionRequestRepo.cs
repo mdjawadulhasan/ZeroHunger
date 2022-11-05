@@ -74,8 +74,9 @@ namespace ZeroHunger.Repo
                     FoodType = item.FoodType,
                     MaxTime = (int)item.MaxTime,
                     Date = item.Date,
-                    CempId = item.CrId,
+                    CempId = item.CempId,
                     Status = item.Status,
+                    
 
 
                 });
@@ -187,11 +188,11 @@ namespace ZeroHunger.Repo
 
 
 
-        public static void CompleteReq(int id,EmployeeModel em)
+        public static void CompleteReq(int id, EmployeeModel em)
         {
             var db = new Entities();
 
-            var colreq = new CollectionRequest { ColId = id, Status = 3 };
+            var colreq = new CollectionRequest { ColId = id, Status = 2 };
             db.CollectionRequests.Attach(colreq);
             db.Entry(colreq).Property(x => x.Status).IsModified = true;
             db.SaveChanges();
@@ -223,7 +224,7 @@ namespace ZeroHunger.Repo
 
             var db = new Entities();
             var collectionRequestModel = new List<CollectionRequestModel>();
-            var colreqdb = db.CollectionRequests.Where(temp => temp.CempId == id && temp.Status==1).ToList();
+            var colreqdb = db.CollectionRequests.Where(temp => temp.CempId == id && temp.Status == 1).ToList();
 
 
             foreach (var item in colreqdb)
@@ -242,6 +243,40 @@ namespace ZeroHunger.Repo
                 });
             }
             return collectionRequestModel;
+        }
+
+
+
+
+
+        public static CollectionRequest Getcollection(int id)
+        {
+            var db = new Entities();
+            var collectionRequest = new CollectionRequest();
+            var item = db.CollectionRequests.Find(id);
+            collectionRequest.ColId = item.ColId;
+            collectionRequest.CrId = item.CrId;
+            collectionRequest.FoodType = item.FoodType;
+            collectionRequest.MaxTime = item.MaxTime;
+            collectionRequest.Date = item.Date;
+            collectionRequest.CempId = item.CempId;
+            collectionRequest.Status = item.Status;
+            return collectionRequest;
+
+
+        }
+
+
+
+        public static void CompleteDistribution(int id)
+        {
+            var db = new Entities();
+
+            var colreq = new CollectionRequest { ColId = id, Status = 3 };
+            db.CollectionRequests.Attach(colreq);
+            db.Entry(colreq).Property(x => x.Status).IsModified = true;
+            db.SaveChanges();
+
         }
     }
 }

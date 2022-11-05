@@ -120,7 +120,7 @@ namespace ZeroHunger.Controllers
 
         public ActionResult Assign(int id)
         {
-            string val=CollectionRequestRepo.AssignEmp(id);
+            string val = CollectionRequestRepo.AssignEmp(id);
             TempData["assign"] = val;
             return RedirectToAction("SeeReq");
         }
@@ -128,8 +128,53 @@ namespace ZeroHunger.Controllers
 
         public ActionResult Inprogress()
         {
-            
+
             return View(CollectionRequestRepo.GetProgress());
         }
+
+
+        public ActionResult Distribute(int id)
+        {
+            var col = CollectionRequestRepo.Getcollection(id);
+          
+            ViewBag.food = col.FoodType;
+            TempData["id"] = col.ColId;
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult Distribute(DistributionListModel dm)
+        {
+
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    int id = (int)TempData["id"];
+                    CollectionRequestRepo.CompleteDistribution(id);
+                    DistributionRepo.Create(dm);
+                    return RedirectToAction("Inprogress");
+                }
+
+                return View();
+
+            }
+            catch
+            {
+
+                return View();
+            }
+        }
+
+        public ActionResult DistributionList()
+        {
+
+            return View(DistributionRepo.getAll());
+
+        }
+
+
     }
 }

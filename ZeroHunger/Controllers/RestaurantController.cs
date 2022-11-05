@@ -99,5 +99,11 @@ namespace ZeroHunger.Controllers
         }
 
 
+        public ActionResult EmpDetails(int id)
+        {
+            return View(EmployeeRepo.Get(id));
+        }
+
+
     }
 }

@@ -32,41 +32,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.CrId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FoodType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @{DateTime dt1 = (DateTime)item.Date;
-                DateTime dt2 = dt1.AddHours((double)item.MaxTime);
-            }
-            <span>@dt2</span>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CempId)
-        </td>
-        <td>
-            @if (item.Status == 0)
-            {<span>Pending</span>}
-            @if (item.Status == 1)
-            {<span>Request Accepted</span>}
-            @if (item.Status == 2)
-            {<span>Completed</span>}
-            @if (item.Status == 3)
-            {<span>Distributed</span>}
-            @if (item.Status == 4)
-            {<span>Expired</span>}
-        </td>
-        
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CrId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @{DateTime dt1 = (DateTime)item.Date;
+                    DateTime dt2 = dt1.AddHours((double)item.MaxTime);
+                }
+                <span>@dt2</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CempId)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {<span>Pending</span>}
+                @if (item.Status == 1)
+                {<span>Request Accepted</span>}
+                @if (item.Status == 2)
+                {<span>Completed</span>
+                    @Html.ActionLink("Click to Distribute", "Distribute", new { id = item.ColId })}
+                @if (item.Status == 3)
+                {<span>Distributed</span>}
+                @if (item.Status == 4)
+                {<span>Expired</span>}
+
+
+            </td>
+
+        </tr>
+    }
 
 </table>

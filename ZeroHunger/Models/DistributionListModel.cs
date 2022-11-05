@@ -9,7 +9,7 @@ namespace ZeroHunger.Models
     public class DistributionListModel
     {
         public int DisId { get; set; }
-        [Required]
+       
         public string FoodType { get; set; }
         [Required] 
         public string Place { get; set; }

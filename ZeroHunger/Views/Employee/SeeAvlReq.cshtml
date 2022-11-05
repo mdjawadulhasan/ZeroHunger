@@ -22,9 +22,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CempId)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
@@ -46,13 +44,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-            <td>
-                @if (item.Status == 0)
-                {<span>--</span>}
-                @if (item.Status != 0)
-                {
-                    {@Html.ActionLink("Employee Details", "EmpDetails", new { id = item.CempId })}
-            }
 
             </td>
             <td>

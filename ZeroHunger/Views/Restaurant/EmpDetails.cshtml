@@ -1,0 +1,43 @@
+﻿@model ZeroHunger.Models.EmployeeModel
+
+@{
+    ViewBag.Title = "EmpDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EmpDetails</h2>
+
+<div>
+    <h4>EmployeeModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpName)
+        </dt>
+
+        <dd>          
+            @Html.DisplayFor(model => model.EmpName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpAdd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpAdd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpPhone)
+        </dd>
+
+    </dl>
+</div>
+
