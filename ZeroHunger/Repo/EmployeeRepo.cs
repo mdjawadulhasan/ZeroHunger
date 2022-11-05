@@ -51,5 +51,35 @@ namespace ZeroHunger.Repo
             }
             return employees;
         }
+
+
+        public static EmployeeModel Get(string uname, string pass)
+        {
+            var db = new Entities();
+            var emp = new EmployeeModel();
+            var dbemp = (from p in db.Employees
+                         where p.EmpUserName == uname && p.EmpPassword == pass
+                         select p).SingleOrDefault();
+
+
+            if (dbemp != null)
+            {
+                emp.Empid = dbemp.Empid;
+                emp.EmpUserName = dbemp.EmpUserName;
+                emp.EmpAge = dbemp.EmpAge;
+                emp.EmpAdd = dbemp.EmpAdd;
+                emp.EmpPhone = dbemp.EmpPhone;
+                emp.EmpUserName = dbemp.EmpUserName;
+                emp.EmpName = dbemp.EmpName;
+                emp.EmpStatus = dbemp.EmpStatus;
+
+            }
+
+            return emp;
+
+        }
+
+
+
     }
 }

@@ -1,0 +1,36 @@
+﻿@using ZeroHunger.Models
+@{
+    ViewBag.Title = "Profile";
+
+}
+
+
+
+@{
+    EmployeeModel em = new EmployeeModel();
+    em = (EmployeeModel)Session["emp"];
+}
+
+
+
+
+
+<div class="card text-center">
+    <div class="card-header">
+       
+        <div>
+            <img src="~/user.jpg" class="rounded-circle" width="80px" height="100px">
+        </div>
+    </div>
+    <div class="card-body">
+
+        <p class="card-text">Employee Name : @em.EmpName </p>
+        <p class="card-text">Age           : @em.EmpAge</p>
+        <p class="card-text">Address       : @em.EmpAdd</p>
+        <p class="card-text">Phone No      : @em.EmpPhone</p>
+        <p class="card-text">User Name     : @em.EmpUserName</p>
+      
+
+    </div>
+</div>
+

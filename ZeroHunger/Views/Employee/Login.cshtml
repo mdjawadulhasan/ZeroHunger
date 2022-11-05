@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+
+<form action="" method="post">
+    <span class="text-danger"> @ViewBag.msg</span>
+    <input type="text" name="EmpUserName" placeholder="Username" class="form-control" />
+    <input type="text" name="EmpPassword" placeholder="Password" class="form-control" />
+    <input type="submit" value="Login" class="btn btn-success" />
+</form>
+
+
+
+
+@if (TempData["emp"] != null && TempData["emp"] == "null")
+{
+    <script>
+        swal("Wrong Credentials!", "Try Again!", "error");
+    </script>
+}
