@@ -56,5 +56,19 @@ namespace ZeroHunger.Repo
             }
             return collectionRequestModel;
         }
+
+
+        public static void Delete(int id)
+        {
+            var db = new Entities();
+            var existingrestaurant = db.CollectionRequests.Where(temp => temp.ColId == id).FirstOrDefault();
+            db.CollectionRequests.Remove(existingrestaurant);
+            db.SaveChanges();
+        }
+
+
+
+
+
     }
 }

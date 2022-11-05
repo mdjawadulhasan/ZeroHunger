@@ -92,5 +92,12 @@ namespace ZeroHunger.Controllers
 
 
 
+        public ActionResult Delete(int id)
+        {
+            CollectionRequestRepo.Delete(id);
+            return RedirectToAction("TrackRequest");
+        }
+
+
     }
 }
