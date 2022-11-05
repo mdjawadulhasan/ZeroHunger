@@ -118,9 +118,17 @@ namespace ZeroHunger.Controllers
         }
 
 
+        public ActionResult Assign(int id)
+        {
+            CollectionRequestRepo.AssignEmp(id);
+            return RedirectToAction("SeeReq");
+        }
 
-        
 
-
+        public ActionResult Inprogress()
+        {
+            
+            return View(CollectionRequestRepo.GetProgress());
+        }
     }
 }

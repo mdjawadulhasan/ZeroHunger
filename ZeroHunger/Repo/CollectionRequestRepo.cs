@@ -97,8 +97,7 @@ namespace ZeroHunger.Repo
             }
         }
 
-
-
+       
 
         public static List<CollectionRequestModel> Get()
         {
@@ -123,5 +122,61 @@ namespace ZeroHunger.Repo
             }
             return collectionRequestModel;
         }
+
+
+        public static void AssignEmp(int id)
+        {
+            var db = new Entities();
+            int count = db.Employees.Where(temp => temp.EmpStatus ==0).ToList().Count;
+
+            if (count >= 1)
+            {
+
+                var colreq = new CollectionRequest { ColId = id,Status=1};
+                db.CollectionRequests.Attach(colreq);
+                db.Entry(colreq).Property(x => x.Status).IsModified = true;
+                db.SaveChanges();
+
+
+                var avalemp = db.Employees.Where(temp => temp.EmpStatus == 0).FirstOrDefault();
+                avalemp.Empid = avalemp.Empid;
+                avalemp.EmpName = avalemp.EmpName;
+                avalemp.EmpAge = avalemp.EmpAge;
+                avalemp.EmpAdd = avalemp.EmpAdd;
+                avalemp.EmpPhone = avalemp.EmpPhone;
+                avalemp.EmpPassword = avalemp.EmpPassword;
+                avalemp.EmpStatus = 1;
+                db.SaveChanges();
+            }
+
+            
+        }
+
+
+        public static List<CollectionRequestModel> GetProgress()
+        {
+            var db = new Entities();
+            var collectionRequestModel = new List<CollectionRequestModel>();
+            var colreqdb = db.CollectionRequests.Where(temp => temp.Status != 0).ToList();
+
+            foreach (var item in colreqdb)
+            {
+                collectionRequestModel.Add(new CollectionRequestModel()
+                {
+                    ColId = item.ColId,
+                    CrId = item.CrId,
+                    FoodType = item.FoodType,
+                    MaxTime = (int)item.MaxTime,
+                    Date = item.Date,
+                    CempId = item.CrId,
+                    Status = item.Status,
+
+
+                });
+            }
+            return collectionRequestModel;
+        }
+
+
     }
 }
