@@ -35,9 +35,35 @@ namespace ZeroHunger.Repo
 
         public static List<CollectionRequestModel> Get(int id)
         {
+
+
             var db = new Entities();
             var collectionRequestModel = new List<CollectionRequestModel>();
             var colreqdb = db.CollectionRequests.Where(temp => temp.CrId == id).ToList();
+
+            foreach (var item in colreqdb)
+            {
+
+                DateTime dt1 = (DateTime)item.Date;
+                DateTime dt2 = dt1.AddHours((double)item.MaxTime);
+                DateTime crnt = DateTime.Now;
+
+                
+                if (DateTime.Compare(dt2, crnt) <0)
+                {
+                    item.ColId = item.ColId;
+                    item.CrId = item.CrId;
+                    item.FoodType = item.FoodType;
+                    item.MaxTime = item.MaxTime;
+                    item.Date = item.Date;
+                    item.CempId = item.CempId;
+                    item.Status = 4;
+                    db.SaveChanges();
+                }
+            }
+
+
+
 
             foreach (var item in colreqdb)
             {
@@ -64,7 +90,7 @@ namespace ZeroHunger.Repo
             var existingrestaurant = db.CollectionRequests.Where(temp => temp.ColId == id).FirstOrDefault();
             int count = (int)(from val in db.CollectionRequests where val.ColId == id select val.Status).SingleOrDefault();
 
-            if (count == 0)
+            if (count == 0 || count==4)
             {
                 db.CollectionRequests.Remove(existingrestaurant);
                 db.SaveChanges();
@@ -74,6 +100,28 @@ namespace ZeroHunger.Repo
 
 
 
+        public static List<CollectionRequestModel> Get()
+        {
+            var db = new Entities();
+            var collectionRequestModel = new List<CollectionRequestModel>();
+            var colreqdb = db.CollectionRequests.Where(temp => temp.Status == 0).ToList();
 
+            foreach (var item in colreqdb)
+            {
+                collectionRequestModel.Add(new CollectionRequestModel()
+                {
+                    ColId = item.ColId,
+                    CrId = item.CrId,
+                    FoodType = item.FoodType,
+                    MaxTime = (int)item.MaxTime,
+                    Date = item.Date,
+                    CempId = item.CrId,
+                    Status = item.Status,
+
+
+                });
+            }
+            return collectionRequestModel;
+        }
     }
 }

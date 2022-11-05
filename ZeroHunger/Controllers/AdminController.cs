@@ -10,7 +10,12 @@ namespace ZeroHunger.Controllers
 {
     public class AdminController : Controller
     {
-      
+
+        public ActionResult Home()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View(RestaurantRepo.Get());
@@ -26,19 +31,19 @@ namespace ZeroHunger.Controllers
         {
             try
             {
-               
+
                 if (ModelState.IsValid)
                 {
                     RestaurantRepo.Create(restaurant);
                     return RedirectToAction("Index");
                 }
-               
+
                 return View(restaurant);
 
             }
             catch
             {
-                
+
                 return View(restaurant);
             }
         }
@@ -50,7 +55,7 @@ namespace ZeroHunger.Controllers
             return View(restaurant);
         }
 
-      
+
         [HttpPost]
         public ActionResult Edit(RestaurantModel restaurant)
         {
@@ -105,6 +110,17 @@ namespace ZeroHunger.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult SeeReq()
+        {
+            return View(CollectionRequestRepo.Get());
+        }
+
+
+
+        
+
 
     }
 }
