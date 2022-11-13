@@ -10,7 +10,7 @@
 
 <table class="table">
     <tr>
-      
+
         <th>
             @Html.DisplayNameFor(model => model.FoodType)
         </th>
@@ -23,20 +23,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.FoodType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Place)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-       
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            @{
+                var dateTime = DateTime.Now;
+                dateTime = (DateTime)item.Date;
+            }
+            <td>
+                @dateTime.ToLongDateString()
+            </td>
+
+        </tr>
+    }
 
 </table>
