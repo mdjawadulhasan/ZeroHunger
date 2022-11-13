@@ -87,7 +87,7 @@ namespace ZeroHunger.Controllers
         {
             RestaurantModel rm = new RestaurantModel();
             rm = (RestaurantModel)Session["rs"];
-            return View(CollectionRequestRepo.Get(rm.Rid));
+            return View(CollectionRequestRepo.GetReq(rm.Rid));
         }
 
 

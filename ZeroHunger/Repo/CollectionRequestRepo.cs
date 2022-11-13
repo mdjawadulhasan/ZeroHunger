@@ -33,13 +33,11 @@ namespace ZeroHunger.Repo
             return count;
         }
 
-        public static List<CollectionRequestModel> Get(int id)
+
+        public static void  UpdateStatus()
         {
-
-
             var db = new Entities();
-            var collectionRequestModel = new List<CollectionRequestModel>();
-            var colreqdb = db.CollectionRequests.Where(temp => temp.CrId == id).ToList();
+            var colreqdb = db.CollectionRequests.ToList();
 
             foreach (var item in colreqdb)
             {
@@ -61,9 +59,17 @@ namespace ZeroHunger.Repo
                     db.SaveChanges();
                 }
             }
+        }
+
+        public static List<CollectionRequestModel> GetReq(int id)
+        {
 
 
-
+            var db = new Entities();
+            var collectionRequestModel = new List<CollectionRequestModel>();
+           
+            UpdateStatus();
+            var colreqdb = db.CollectionRequests.Where(t=>t.CrId==id).ToList();
 
             foreach (var item in colreqdb)
             {
@@ -102,6 +108,7 @@ namespace ZeroHunger.Repo
 
         public static List<CollectionRequestModel> Get()
         {
+            UpdateStatus();
             var db = new Entities();
             var collectionRequestModel = new List<CollectionRequestModel>();
             var colreqdb = db.CollectionRequests.Where(temp => temp.Status == 0).ToList();

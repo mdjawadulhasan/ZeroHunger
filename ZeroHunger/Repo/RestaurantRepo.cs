@@ -96,9 +96,16 @@ namespace ZeroHunger.Repo
         public static void Delete(RestaurantModel dbr)
         {
             var db = new Entities();
-            var existingrestaurant = db.Restaurants.Where(temp => temp.Rid == dbr.Rid).FirstOrDefault();
-            db.Restaurants.Remove(existingrestaurant);
-            db.SaveChanges();
+
+            int count = db.CollectionRequests.Where(temp => temp.CrId == dbr.Rid ).ToList().Count;
+            if (count == 0)
+            {
+                var existingrestaurant = db.Restaurants.Where(temp => temp.Rid == dbr.Rid).FirstOrDefault();
+                db.Restaurants.Remove(existingrestaurant);
+                db.SaveChanges();
+            }
+
+            
         }
 
     }

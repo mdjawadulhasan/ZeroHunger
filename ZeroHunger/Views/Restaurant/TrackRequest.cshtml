@@ -45,7 +45,7 @@
             <td>
                 @if (item.Status == 0)
                 {<span>--</span>}
-                @if (item.Status != 0)
+                @if (item.Status != 0 && item.Status != 4)
                 {
                     {@Html.ActionLink("Employee Details", "EmpDetails", new { id=item.CempId })}
             }
